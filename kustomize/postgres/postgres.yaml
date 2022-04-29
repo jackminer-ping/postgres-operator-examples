@@ -8,6 +8,7 @@ spec:
   instances:
     - name: instance1
       dataVolumeClaimSpec:
+        storageClassName: pgo-gp2
         accessModes:
         - "ReadWriteOnce"
         resources:
@@ -20,6 +21,7 @@ spec:
       - name: repo1
         volume:
           volumeClaimSpec:
+            storageClassName: pgo-gp2
             accessModes:
             - "ReadWriteOnce"
             resources:
