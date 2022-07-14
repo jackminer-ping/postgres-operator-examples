@@ -19,11 +19,11 @@ spec:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.38-1
       repos:
       - name: repo1
-        volume:
-          volumeClaimSpec:
-            storageClassName: pgo-gp2
-            accessModes:
-            - "ReadWriteOnce"
-            resources:
-              requests:
-                storage: 1Gi
+        s3:
+          bucket: jackminer-pgo-test
+          endpoint: s3.us-west-2.amazonaws.com
+          region: us-west-2
+      manual:
+        repoName: repo1
+        options:
+        - --type=full
