@@ -8,5 +8,5 @@ secretGenerator:
 generatorOptions:
   disableNameSuffixHash: true
 
-resources:
-- postgres.yaml
+# resources:
+# - postgres.yaml
