@@ -1,5 +1,7 @@
 #!/bin/bash
 
+## NOTE: you can also connect on each cluster by shelling onto it and running `psql` - that is much easier than this...
+
 # Connect to primary
 KUBECONFIG=~/.kube/config
 PG_CLUSTER_PRIMARY_POD=$(kubectl get pod -n postgres-operator -o name \
