@@ -19,7 +19,7 @@ spec:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.38-1
       configuration:
         - secret:
-            name: pgo-standby-s3-creds
+            name: pgo-gke-s3-creds
       repos:
       - name: repo1
         s3:

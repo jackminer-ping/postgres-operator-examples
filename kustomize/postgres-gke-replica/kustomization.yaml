@@ -5,7 +5,7 @@ resources:
 - gke.yaml
 
 secretGenerator:
-- name: pgo-s3-creds
+- name: pgo-gke-s3-creds
   files:
   - s3.conf
 
