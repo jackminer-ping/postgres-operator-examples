@@ -24,17 +24,17 @@
 # }
 set -x
 
-REGION="us-east-2"
-
 ########################################################################
 # NOTE: the following are example values. FILL THEM IN with correct
 # values for your environment!!!
+REGION="us-west-2"
 POLICY_NAME="jackminer-pgo-test"
-ROLE_NAME="jackminer-pgo-test-replica"
+ROLE_NAME="jackminer-pgo-test-primary"
 
-CLUSTER_NAME="jack-test"
+CLUSTER_NAME="jackminer-primary"
 NAMESPACE="postgres-operator"
-SERVICE_ACCOUNT="hippo-standby-instance"
+# Usually the service account is your postgres cluster name followed by 'instance'
+SERVICE_ACCOUNT="hippo-instance"
 ########################################################################
 
 ### VERY IMPORTANT - create OIDC provider
