@@ -1,6 +1,13 @@
 #!/bin/bash
 
-# Create the policy manually
+# Create an IRSA role for a provided cluster, namespace, and service account
+# Makes sure that an EKS cluster is set up to use IRSA
+
+# TODO: automate
+# Create the policy manually in AWS, name it according to your POLICY_NAME that
+# you want to set
+
+# Example policy:
 # {
 #   "Version": "2012-10-17",
 #   "Statement": [
@@ -19,12 +26,16 @@ set -x
 
 REGION="us-east-2"
 
+########################################################################
+# NOTE: the following are example values. FILL THEM IN with correct
+# values for your environment!!!
 POLICY_NAME="jackminer-pgo-test"
 ROLE_NAME="jackminer-pgo-test-replica"
 
 CLUSTER_NAME="jack-test"
 NAMESPACE="postgres-operator"
 SERVICE_ACCOUNT="hippo-standby-instance"
+########################################################################
 
 ### VERY IMPORTANT - create OIDC provider
 eksctl --region ${REGION} utils associate-iam-oidc-provider --cluster ${CLUSTER_NAME} --approve
