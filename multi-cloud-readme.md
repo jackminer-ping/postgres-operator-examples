@@ -12,6 +12,7 @@ To set up the scenario, you'll need the following:
 * Access to an AWS account and GCP account (recommend a trial if you don't have one)
 * 2 EKS clusters, in two different clouds (in this case AWS, GCP)
   * You can set the AWS one up like any old dev cluster. For GCP set up a public cluster using "Autopilot" for scaling
+  * You will need to add your public IP to the authorized networks for the GCP cluster
 * An AWS S3 bucket created for the primary to write backups to and the standby to read from - MANUAL FOR NOW
 
 ## Setup
@@ -40,7 +41,6 @@ To set up the scenario, you'll need the following:
     kubectx YOUR_GKE_CLUSTER
     kubectl apply -k kustomize/install/namespace
     kubectl apply --server-side -k kustomize/install/default
-    kubectl apply -k kustomize/s3
     kubectl apply -k kustomize/postgres-gke-replica
     ```
 
