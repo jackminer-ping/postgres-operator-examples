@@ -37,4 +37,8 @@ spec:
           shared_preload_libraries: pgnodemx
           pgnodemx.kdapi_enabled: on
           pgnodemx.kdapi_path: /etc/database-containerinfo
+  users:
+    - name: hippo-pgo-created
+      databases:
+        - hippo
 
