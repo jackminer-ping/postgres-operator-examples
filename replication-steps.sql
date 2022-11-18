@@ -6,12 +6,19 @@
 \c hippo;
 
 --- Create schema
-CREATE SCHEMA hippo;
+--CREATE SCHEMA hippo;
+-- uses postgres schema...
 
---- Create role/user
-CREATE ROLE hippo_role WITH LOGIN PASSWORD 'hippotest';
+--- Create role/user for each region
+--CREATE ROLE hippo_role WITH LOGIN PASSWORD 'hippotest';
+CREATE ROLE pf_replication_secondary WITH LOGIN PASSWORD 'hippotest';
+CREATE ROLE pf_replication_primary WITH LOGIN PASSWORD 'hippotest';
 
-GRANT ALL PRIVILEGES ON SCHEMA hippo TO hippo_role;
+
+--GRANT ALL PRIVILEGES ON SCHEMA hippo TO hippo_role;
+
+GRANT ALL PRIVILEGES ON SCHEMA hippo TO pf_replication_secondary;
+GRANT ALL PRIVILEGES ON SCHEMA hippo TO pf_replication_primary;
 
 
 --- First portion
