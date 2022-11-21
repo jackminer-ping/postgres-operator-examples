@@ -7,39 +7,41 @@
 
 --- Create schema
 --CREATE SCHEMA hippo;
--- uses postgres schema...
+-- TODO: uses public schema...
 
 --- Create role/user for each region
 --CREATE ROLE hippo_role WITH LOGIN PASSWORD 'hippotest';
-CREATE ROLE pf_replication_secondary WITH LOGIN PASSWORD 'hippotest';
-CREATE ROLE pf_replication_primary WITH LOGIN PASSWORD 'hippotest';
+CREATE ROLE pf_replication_primary WITH LOGIN PASSWORD 'a_public_password';
+CREATE ROLE pf_replication_secondary WITH LOGIN PASSWORD 'a_public_password';
 
 
 --GRANT ALL PRIVILEGES ON SCHEMA hippo TO hippo_role;
 
-GRANT ALL PRIVILEGES ON SCHEMA hippo TO pf_replication_secondary;
-GRANT ALL PRIVILEGES ON SCHEMA hippo TO pf_replication_primary;
+GRANT ALL PRIVILEGES ON SCHEMA public TO pf_replication_primary;
+GRANT ALL PRIVILEGES ON SCHEMA public TO pf_replication_secondary;
 
-
---- First portion
+--- Add extension to both dbs
 CREATE EXTENSION IF NOT EXISTS pgnodemx;
 
 
 -- Change to (postgres-operator.crunchydata.com/cluster) ????
+
 -- CREATE OR REPLACE FUNCTION hippo.get_node_name()
 -- RETURNS text
 -- AS $$
---   SELECT val FROM kdapi_setof_kv('labels') WHERE key='pg-cluster';
+--   SELECT val FROM kdapi_setof_kv('labels') WHERE key='postgres-operator.crunchydata.com/cluster';
 -- $$ LANGUAGE SQL SECURITY DEFINER IMMUTABLE;
 
-CREATE OR REPLACE FUNCTION hippo.get_node_name()
+CREATE OR REPLACE FUNCTION public.get_node_name()
 RETURNS text
 AS $$
   SELECT val FROM kdapi_setof_kv('labels') WHERE key='postgres-operator.crunchydata.com/cluster';
 $$ LANGUAGE SQL SECURITY DEFINER IMMUTABLE;
 
 --- hippo user doesn't actually exist
-GRANT EXECUTE ON FUNCTION hippo.get_node_name() TO hippo_role;
+--GRANT EXECUTE ON FUNCTION hippo.get_node_name() TO hippo_role;
+GRANT EXECUTE ON FUNCTION public.get_node_name() TO pf_replication_primary;
+GRANT EXECUTE ON FUNCTION public.get_node_name() TO pf_replication_secondary;
 
 
 --- Second portion
